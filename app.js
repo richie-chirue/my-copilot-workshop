@@ -50,10 +50,15 @@ function getVisibleTodos() {
 }
 
 function updateEmptyState(visibleTodos) {
+  const hasFilteredOutTodos = todos.length > 0;
   const messages = {
     all: "還沒有任何待辦事項,新增一個吧!",
-    active: "目前沒有未完成的待辦事項。",
-    completed: "目前沒有已完成的待辦事項。"
+    active: hasFilteredOutTodos
+      ? "目前沒有未完成的事項，其他項目只是被篩選條件過濾掉了。"
+      : "目前沒有未完成的待辦事項。",
+    completed: hasFilteredOutTodos
+      ? "目前沒有已完成的事項，其他項目只是被篩選條件過濾掉了。"
+      : "目前沒有已完成的待辦事項。"
   };
   emptyState.textContent = messages[currentFilter];
   emptyState.hidden = visibleTodos.length > 0;
